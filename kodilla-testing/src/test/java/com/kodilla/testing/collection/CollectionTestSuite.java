@@ -31,13 +31,10 @@ public class CollectionTestSuite {
         List<Integer> actual = oddNumbersExterminator.exterminate(Arrays.asList(
                 new Integer[] { }
         ));
-        List<Integer> expected = Arrays.asList(
-                new Integer[] { }
-        );
-        System.out.println("Testing: testOddNumbersExterminatorEmptyList");
+        boolean result = actual.isEmpty();
 
         //Then
-        Assertions.assertArrayEquals(expected.toArray(), actual.toArray());
+        Assertions.assertTrue(result);
     }
 
     @DisplayName(
@@ -53,12 +50,11 @@ public class CollectionTestSuite {
         List<Integer> actual = oddNumbersExterminator.exterminate(Arrays.asList(
                 new Integer[] { 1, 2, 3, 4, 5, 6 }
         ));
+
+        //Then
         List<Integer> expected = Arrays.asList(
                 new Integer[] { 2, 4, 6 }
         );
-        System.out.println("Testing: testOddNumbersExterminatorNormalList");
-
-        //Then
         Assertions.assertArrayEquals(expected.toArray(), actual.toArray());
     }
 }
