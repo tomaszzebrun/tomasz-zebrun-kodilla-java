@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kodilla.tictactoe.TicTacToeController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Plik">
+            <items>
+              <MenuItem fx:id="menuOtworz" mnemonicParsing="false" onAction="#otworzAction" text="Otwórz" />
+                  <MenuItem fx:id="menuZapisz" mnemonicParsing="false" onAction="#zapiszAction" text="Zapisz" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuZamknij" mnemonicParsing="false" onAction="#zamknijAction" text="Zamknij" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Gra">
+            <items>
+              <MenuItem fx:id="menuNowaGra" mnemonicParsing="false" onAction="#nowaGraAction" text="Nowa gra" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="2.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="2.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="29.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="gameStatusLabel" layoutX="10.0" layoutY="7.0">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <Pane fx:id="gamePane" prefHeight="364.0" prefWidth="364.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
