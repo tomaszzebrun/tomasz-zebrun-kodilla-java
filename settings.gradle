@@ -6,3 +6,5 @@ include 'kodilla-javafx'
 include 'kodilla-good-patterns'
 include 'kodilla-spring'
 include 'kodilla-spring-web'
+include 'kodilla-patterns'
+
