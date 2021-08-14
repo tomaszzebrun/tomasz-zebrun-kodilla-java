@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -23,6 +24,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Gra">
             <items>
+                  <CheckMenuItem fx:id="menuVsKomputer" mnemonicParsing="false" onAction="#vsKomputerAction" selected="true" text="Przeciwko komputerowi" />
               <MenuItem fx:id="menuNowaGra" mnemonicParsing="false" onAction="#nowaGraAction" text="Nowa gra" />
             </items>
           </Menu>

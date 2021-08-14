@@ -1,10 +1,10 @@
 package com.kodilla.tictactoe;
 
-
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import java.io.Serializable;
 
-public class Board {
+public class Board implements Serializable {
 
     Cell[][] cells; // composes of 2D array of ROWS-by-COLS Cell instances
 

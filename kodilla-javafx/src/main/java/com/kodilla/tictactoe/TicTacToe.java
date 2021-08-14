@@ -33,6 +33,8 @@ public class TicTacToe extends Application {
     public static final Color COLOR_STATE_PLAYNG = Color.BLACK;
     public static final Color COLOR_STATE_STOP = Color.RED;
 
+    public static Stage mainStage;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -47,8 +49,13 @@ public class TicTacToe extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("tictactoe.css").toExternalForm());
 
+        mainStage = primaryStage;
+
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle(TITLE);
         primaryStage.show();
     }
+
+
 }

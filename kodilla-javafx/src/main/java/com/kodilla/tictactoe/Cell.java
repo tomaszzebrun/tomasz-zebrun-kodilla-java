@@ -4,7 +4,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
 
     Seed content; // content of this cell (Seed.EMPTY, Seed.CROSS, or Seed.NOUGHT)
     int row;

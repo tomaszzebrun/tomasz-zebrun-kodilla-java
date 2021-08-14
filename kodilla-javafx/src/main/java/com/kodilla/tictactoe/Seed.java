@@ -1,5 +1,7 @@
 package com.kodilla.tictactoe;
 
-public enum Seed {
+import java.io.Serializable;
+
+public enum Seed implements Serializable {
     EMPTY, CROSS, NOUGHT
 }

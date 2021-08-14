@@ -1,5 +1,7 @@
 package com.kodilla.tictactoe;
 
-public enum State {
+import java.io.Serializable;
+
+public enum State implements Serializable {
     NEW_GAME, PLAYING, DRAW, CROSS_WON, NOUGHT_WON
 }

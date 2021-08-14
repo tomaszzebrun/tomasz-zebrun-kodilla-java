@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,9 +17,11 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
+import java.io.*;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TicTacToeController implements Initializable {
 
@@ -30,17 +33,77 @@ public class TicTacToeController implements Initializable {
     private Pane gamePane;
     @FXML
     private Label gameStatusLabel;
+    @FXML
+    private CheckMenuItem menuVsKomputer;
+
+    @FXML
+    private void vsKomputerAction(ActionEvent event) {
+        //menuVsKomputer.isSelected();
+
+    }
 
     @FXML
     private void otworzAction(ActionEvent event) {
-        // otworz
-        System.out.println("otworz");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Otwórz plik");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Pliki TTT", "*.ttt")
+        );
+        File file = fileChooser.showOpenDialog(TicTacToe.mainStage);
+        if (file != null) {
+            try {
+                try {
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    BufferedInputStream bufferedInputStream
+                            = new BufferedInputStream(fileInputStream);
+                    ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
+                    try {
+                        board = (Board) objectInputStream.readObject();
+                        currentState = (State) objectInputStream.readObject();
+                        currentPlayer = (Seed) objectInputStream.readObject();
+                        board.repaint(gamePane, true);
+                        repaintGameStatus();
+                    } catch (EOFException eof) {
+                        bufferedInputStream.close();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } catch (FileNotFoundException e) {
+                    System.out.println("Nie znaleziono pliku.");
+                }
+            } catch (IOException e) {
+                System.out.println("Bład wejścia wyjścia.");
+            }
+        }
     }
 
     @FXML
     private void zapiszAction(ActionEvent event) {
-        // zapisz
-        System.out.println("zapisz");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Zapisz plik");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Pliki TTT", "*.ttt")
+        );
+        File file = fileChooser.showSaveDialog(TicTacToe.mainStage);
+        if (file != null) {
+            try {
+                if (file.exists()) {
+                    file.delete();
+                }
+                if (file.createNewFile()) {
+                }
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                BufferedOutputStream bufferedOutputStream =
+                        new BufferedOutputStream(fileOutputStream);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream);
+                objectOutputStream.writeObject(board);
+                objectOutputStream.writeObject(currentState);
+                objectOutputStream.writeObject(currentPlayer);
+                bufferedOutputStream.close();
+            } catch (IOException e) {
+                System.out.println("Błąd zapisu do pliku");
+            }
+        }
     }
 
     @FXML
@@ -50,7 +113,6 @@ public class TicTacToeController implements Initializable {
 
     @FXML
     private void nowaGraAction(ActionEvent event) {
-        //zapytaj o zapis
         initGame();
     }
 
@@ -84,11 +146,15 @@ public class TicTacToeController implements Initializable {
                         updateGame(currentPlayer, rowSelected, colSelected); // update currentState
                         // Switch player
                         currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
+
                     }
                 } else {         // game over
                     initGame();  // restart the game
                 }
                 // Refresh the drawing canvas
+                if (currentState == State.PLAYING && menuVsKomputer.isSelected() && currentPlayer == Seed.NOUGHT) {
+                    computerMove();
+                }
                 repaint(gamePane);
             }
         };
@@ -96,6 +162,26 @@ public class TicTacToeController implements Initializable {
 
         board = new Board();   // allocate the game-board
         initGame();
+    }
+
+    private void computerMove() {
+        repaint(gamePane);
+        List<Cell> emptyCells = new ArrayList<>();
+        for (int row = 0; row < TicTacToe.ROWS; ++row) {
+            for (int col = 0; col < TicTacToe.COLS; ++col) {
+                if (board.cells[row][col].content == Seed.EMPTY) {
+                    emptyCells.add(board.cells[row][col]);
+                }
+            }
+        }
+        Random random = new Random();
+        int computerCell = random.nextInt(emptyCells.size());
+        int rowSelected = emptyCells.get(computerCell).row;
+        int colSelected = emptyCells.get(computerCell).col;
+        board.cells[rowSelected][colSelected].content = currentPlayer; // move
+        updateGame(currentPlayer, rowSelected, colSelected); // update currentState
+        // Switch player
+        currentPlayer = Seed.CROSS;
     }
 
     public void initGame() {
@@ -116,9 +202,11 @@ public class TicTacToeController implements Initializable {
     }
 
     public void repaint(Pane pane) {
-
         board.repaint(pane, currentState == State.NEW_GAME);  // ask the game board to paint itself
+        repaintGameStatus();
+    }
 
+    public void repaintGameStatus() {
         // Print status-bar message
         if (currentState == State.NEW_GAME || currentState == State.PLAYING) {
             gameStatusLabel.setTextFill(TicTacToe.COLOR_STATE_PLAYNG);
