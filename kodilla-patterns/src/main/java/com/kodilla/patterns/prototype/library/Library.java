@@ -6,8 +6,8 @@ import static java.util.stream.Collectors.joining;
 
 public class Library extends Prototype<Library> {
 
-    String name;
-    Set<Book> books = new HashSet<>();
+    private String name;
+    private Set<Book> books = new HashSet<>();
 
     public Library(String name) {
         this.name = name;
