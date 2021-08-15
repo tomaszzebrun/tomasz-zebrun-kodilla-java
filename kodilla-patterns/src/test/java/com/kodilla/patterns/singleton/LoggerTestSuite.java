@@ -11,9 +11,14 @@ public class LoggerTestSuite {
         //Given
         Logger logger = Logger.INSTANCE;
         logger.log("zapisz wczesniej do logow");
+
         //When
         String result = logger.getLastLog();
+        Logger loggerSingletonTest = Logger.INSTANCE;
+        String resultSingletonTest = loggerSingletonTest.getLastLog();
+
         //Then
         assertEquals("zapisz wczesniej do logow", result);
+        assertEquals("zapisz wczesniej do logow", resultSingletonTest);
     }
 }
