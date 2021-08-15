@@ -43,8 +43,8 @@ public class Flight {
     public String toString() {
         return "Flight{" +
                 "idFlight=" + idFlight +
-                ", departureAirport=" + departureAirport +
-                ", arrivalAirport=" + arrivalAirport +
+                ", departureAirport=" + departureAirport.getName() +
+                ", arrivalAirport=" + arrivalAirport.getName() +
                 '}';
     }
 }
