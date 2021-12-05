@@ -101,7 +101,7 @@ public class CompanyDaoTestSuite {
     void testCompaniesWhenNameStarts() {
         //Given
         Company softwareMachine = new Company("Software Machine");
-        Company dataMaesters = new Company("Data Maesters");
+        Company dataMaesters = new Company("Data Masters");
         Company greyMatter = new Company("Grey Matter");
 
         //When
@@ -111,7 +111,7 @@ public class CompanyDaoTestSuite {
         int dataMaestersId = dataMaesters.getId();
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
-        List<Company> result = companyDao.retrieveCompaniesWhenNameStarts("Softa");
+        List<Company> result = companyDao.retrieveCompaniesWhenNameStarts("Soft");
 
         //Then
         assertNotEquals(0,softwareMachineId);

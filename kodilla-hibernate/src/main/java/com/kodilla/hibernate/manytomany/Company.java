@@ -10,6 +10,11 @@ import java.util.List;
         query = "FROM Company c WHERE c.name " +
                 "LIKE substring(:NAMESTARTS, 1, 3) || '%'"
 )
+@NamedQuery(
+        name = "Company.retrieveCompaniesWithNameLike",
+        query = "FROM Company c WHERE c.name " +
+                "LIKE :NAMELIKE"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
